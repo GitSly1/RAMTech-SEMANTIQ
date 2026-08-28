@@ -1,0 +1,15 @@
+schema_version: 1
+project_id: semantiq
+project_name: RAMTech SEMANTIQ
+repository: GitSly1/RAMTech-SEMANTIQ
+repository_class: product
+control_center: GitSly1/RAMTech-RVSC-Control-Center
+default_branch: main
+branch_policy:
+  work_branch_pattern: rvsc/<work-package-id>-<short-slug>
+  direct_product_changes_to_main: prohibited
+source_boundaries:
+  product_source_repository: GitSly1/RAMTech-SEMANTIQ
+  control_plane_source_repository: GitSly1/RAMTech-RVSC-Control-Center
+  cross_repository_write_requires_explicit_scope: true
+checkpoint: RVSC-013
