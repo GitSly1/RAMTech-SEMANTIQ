@@ -4,6 +4,7 @@ on:
   pull_request:
     branches:
       - main
+      - rvsc/SEM-003-rtudes-baseline-import
   workflow_dispatch:
 
 permissions:
