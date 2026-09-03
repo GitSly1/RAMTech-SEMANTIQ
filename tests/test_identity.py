@@ -20,8 +20,25 @@ class ProductIdentityTests(unittest.TestCase):
         self.assertRegex(semantiq.__version__, r"^\d+\.\d+\.\d+$")
         self.assertEqual(get_product_identity().version, semantiq.__version__)
 
+    def test_structured_identity_metadata(self):
+        self.assertEqual(
+            semantiq.get_identity_metadata(),
+            {"name": semantiq.PRODUCT_NAME, "version": semantiq.__version__},
+        )
+
+    def test_identity_metadata_is_returned_independently(self):
+        metadata = semantiq.get_identity_metadata()
+        metadata["name"] = "changed"
+        self.assertEqual(semantiq.get_identity_metadata()["name"], "SEMANTIQ")
+
     def test_public_exports(self):
-        expected = {"PRODUCT_NAME", "ProductIdentity", "__version__", "get_product_identity"}
+        expected = {
+            "PRODUCT_NAME",
+            "ProductIdentity",
+            "__version__",
+            "get_identity_metadata",
+            "get_product_identity",
+        }
         self.assertEqual(set(semantiq.__all__), expected)
         for name in expected:
             self.assertTrue(hasattr(semantiq, name), name)

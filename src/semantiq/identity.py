@@ -15,3 +15,9 @@ class ProductIdentity:
 
 def get_product_identity() -> ProductIdentity:
     return ProductIdentity(name=PRODUCT_NAME, version=__version__)
+
+
+def get_identity_metadata() -> dict[str, str]:
+    """Return identity metadata in a runtime-friendly structured form."""
+    identity = get_product_identity()
+    return {"name": identity.name, "version": identity.version}
