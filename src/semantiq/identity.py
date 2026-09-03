@@ -21,3 +21,12 @@ def get_identity_metadata() -> dict[str, str]:
     """Return identity metadata in a runtime-friendly structured form."""
     identity = get_product_identity()
     return {"name": identity.name, "version": identity.version}
+
+
+def get_recovery_probe_metadata() -> dict[str, str]:
+    """Return deterministic metadata for interrupted-mission recovery probes."""
+    return {
+        "component": "semantiq",
+        "purpose": "rvsc_interrupted_mission_recovery_proof",
+        "schema_version": "1",
+    }
