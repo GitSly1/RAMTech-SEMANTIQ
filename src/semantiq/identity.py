@@ -30,3 +30,12 @@ def get_recovery_probe_metadata() -> dict[str, str]:
         "purpose": "rvsc_interrupted_mission_recovery_proof",
         "schema_version": "1",
     }
+
+
+def get_automatic_recovery_probe_metadata() -> dict[str, str]:
+    """Return deterministic metadata for automatic continuation probes."""
+    return {
+        "component": "semantiq",
+        "purpose": "rvsc_automatic_interrupted_continuation_final_proof",
+        "schema_version": "1",
+    }

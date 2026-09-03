@@ -8,7 +8,11 @@ if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
 
 import semantiq
-from semantiq.identity import get_product_identity, get_recovery_probe_metadata
+from semantiq.identity import (
+    get_automatic_recovery_probe_metadata,
+    get_product_identity,
+    get_recovery_probe_metadata,
+)
 
 
 class ProductIdentityTests(unittest.TestCase):
@@ -46,6 +50,29 @@ class ProductIdentityTests(unittest.TestCase):
         second = get_recovery_probe_metadata()
         self.assertEqual(first, second)
         self.assertIsNot(first, second)
+
+    def test_automatic_recovery_probe_metadata_exact_value(self):
+        self.assertEqual(
+            get_automatic_recovery_probe_metadata(),
+            {
+                "component": "semantiq",
+                "purpose": "rvsc_automatic_interrupted_continuation_final_proof",
+                "schema_version": "1",
+            },
+        )
+
+    def test_automatic_recovery_probe_metadata_is_deterministic(self):
+        self.assertEqual(
+            get_automatic_recovery_probe_metadata(),
+            get_automatic_recovery_probe_metadata(),
+        )
+
+    def test_automatic_recovery_probe_metadata_is_returned_independently(self):
+        first = get_automatic_recovery_probe_metadata()
+        second = get_automatic_recovery_probe_metadata()
+        self.assertIsNot(first, second)
+        first["component"] = "changed"
+        self.assertEqual(second["component"], "semantiq")
 
     def test_public_exports(self):
         expected = {
